@@ -22,6 +22,9 @@ public class Variaveis {
       System.out.println("Variável do tipo float (valor flutuante): " + varFloat);
 
       double varDouble = 0.266353635; // declaração da variável varDouble, do tipo double, com valor recebido de 0.266353635
+        System.out.println("Variável do tipo double (número decimal): " + varDouble);
+        
     }
-    
+
+
 }
