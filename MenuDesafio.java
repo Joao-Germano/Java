@@ -29,6 +29,11 @@ public class MenuDesafio extends JFrame {
  private final JButton verJButton = new JButton("");
  private final JButton excluirJButton = new JButton("🗑️");
 
+ private final String dbPadrao = "db_texte";
+ private final String tblPadrao = "tbl_texte";
+ 
+ 
+
  public MenuDesafio()
  {
  super("Cadastrar");
@@ -189,6 +194,31 @@ catch(Exception e){
   }
  }
 );
+
+verJButton.addActionListener(new ActionListener() {
+  public void actionPerformed(ActionEvent event) {
+      String nome;
+      String email;
+      String senha;
+      String[] resultado;
+      try {
+          nome = nomeJTextField.getText();
+          email = emailJTextField.getText();
+          senha = senhaJTextField.getText();
+
+          resultado = NavegadorDeRegistro.verRegistro("db_texte","tbl_texte","nome", "email","senha", nome, email,senha);
+
+        nomeJTextField.setText(resultado[0]);
+        emailJTextField.setText(resultado[1]);
+        senhaJTextField.setText(resultado[2]);
+
+          notificacaoJLabel.setText("Pesquisa realizada com sucesso");
+      } catch (Exception e) {
+
+          notificacaoJLabel.setText("Erro ao realizar a pesquisa: " + e);
+      }
+  }
+});
 
 excluirJButton.addActionListener(
   new ActionListener() {
