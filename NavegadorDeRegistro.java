@@ -149,25 +149,7 @@ public class NavegadorDeRegistro {
           }
          return retorno;
         }
-        
-        public  static String verRegistro(String db, String tbl,String campo1,String campo2,String campo3, String nome, String email, String senha) {
-            String retorno = "Nada aconteceu ainda...";
-                try {
-                    Connection conexao = MySQLConnector.conectar();
-                    String strSqlVerRegistro = "insert into `" + db +"`.`" + tbl +"` (`" + campo1 + "`, `" + campo2 + "`, `" + campo3 + "`) values ('" + nome + "', '"+ email +"', '" + senha + "');";
-                    Statement stmSqlVerRegistro = conexao.createStatement();
-                    stmSqlVerRegistro.addBatch(strSqlVerRegistro);
-                    stmSqlVerRegistro.executeBatch();
-                    stmSqlVerRegistro.close();        
-                    retorno = ("Novo registro inserido com sucesso !");
-                    System.out.println(retorno);
-              } catch (Exception e) {
-                retorno = "Ops! ocorreu o erro:" + e;
-                System.out.println(retorno);
-              }
-             return retorno;
-            }
-
+ 
     public static String[] anteriorRegistro(String db, String tbl, String id) throws Exception {
         Connection conexao = MySQLConnector.conectar();
         int idPessoa = Integer.parseInt(id);
