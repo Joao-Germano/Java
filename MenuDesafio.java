@@ -190,29 +190,6 @@ catch(Exception e){
  }
 );
 
-verJButton.addActionListener(
-  new ActionListener() {
-      public void actionPerformed(ActionEvent event)
-{
-String nome;
-String senha;
-String email;
-try
-{
-  nome =  nomeJTextField.getText();
-  email = emailJTextField.getText();
-  senha = senhaJTextField.getText();
-NavegadorDeRegistro.verRegistro("db_texte", "tbl_texte","nome", "email", "senha", nome, email, senha);
-  notificacaoJLabel.setText("Pesquisa realizada com sucesso");
-} 
-catch(Exception e){
-  System.out.println("Digite alguma coisa.");
-  return;
-   }     
-  }
- }
-);
-
 excluirJButton.addActionListener(
   new ActionListener() {
       public void actionPerformed(ActionEvent event)
