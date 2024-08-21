@@ -150,23 +150,23 @@ public class NavegadorDeRegistro {
          return retorno;
         }
         
-        public  static String[] verRegistro(String db, String tbl,String campo1,String campo2,String campo3, String nome, String email, String senha) {
+        public  static String[] verRegistro(String db, String tbl,String campo1,String campo2,String campo3, String nome, String email) {
             String retorno = "Nada aconteceu ainda...";
             String resultado[] = new String[4];
                 try {
                     Connection conexao = MySQLConnector.conectar();
-                    String strSqlVerRegistro = "SELECT " + campo1 + ", " + campo2 + ", " + campo3 + " FROM " + db + "." + tbl + " WHERE " + campo2 + " = '" + nome + "' OR " + campo3 + " = '" + email + "'";
+                    String strSqlVerRegistro = "SELECT " + campo1 + ", " + campo2 + ", " + campo3 + " FROM " + db + "." + tbl + " WHERE " + campo1 + " = '" + nome + "' OR " + campo2 + " = '" + email + "'";
                     Statement stmSqlVerRegistro = conexao.createStatement();
                     ResultSet resultSet = stmSqlVerRegistro.executeQuery(strSqlVerRegistro);
 
                     if(resultSet.next()){
-                        resultado[0] = resultSet.getString("id");
-                        resultado[1] = resultSet.getString("nome");
-                        resultado[2] = resultSet.getString("email");
-                        resultado[3] = resultSet.getString("senha");
+                        // resultado[0] = resultSet.getString("id");
+                        resultado[0] = resultSet.getString("nome");
+                        resultado[1] = resultSet.getString("email");
+                        resultado[2] = resultSet.getString("senha");
                     }
                     stmSqlVerRegistro.close();
-                    retorno = ("Novo registro inserido com sucesso !");
+                    retorno = ("Pesquisa realizada com sucesso !");
                     System.out.println(retorno);
               } catch (Exception e) {
                 System.out.println(e);
@@ -180,7 +180,6 @@ public class NavegadorDeRegistro {
             return resultado;
         }
             
-
     public static String[] anteriorRegistro(String db, String tbl, String id) throws Exception {
         Connection conexao = MySQLConnector.conectar();
         int idPessoa = Integer.parseInt(id);

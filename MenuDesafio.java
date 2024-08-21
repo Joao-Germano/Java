@@ -28,11 +28,9 @@ public class MenuDesafio extends JFrame {
  private final JButton novoJButton = new JButton("+");
  private final JButton verJButton = new JButton("");
  private final JButton excluirJButton = new JButton("🗑️");
-
- private final String dbPadrao = "db_texte";
- private final String tblPadrao = "tbl_texte";
  
- 
+ //private final String dbPadrao = "db_texte";
+ //private final String tblPadrao = "tbl_texte";
 
  public MenuDesafio()
  {
@@ -43,6 +41,7 @@ public class MenuDesafio extends JFrame {
     new ActionListener() {
         public  void actionPerformed(ActionEvent event) {
             String[] resultado;
+           
             try {
                 resultado = NavegadorDeRegistro.primeiroRegistro("db_texte","tbl_texte");
                 notificacaoJLabel.setText("Primeiro registro posicionado com sucesso");
@@ -59,8 +58,6 @@ public class MenuDesafio extends JFrame {
                // novoJButton.setEnabled(false);
                 //verJButton.setEnabled(false);
                 //editarJButton.setEnabled(false);
-
-
            }catch(Exception e) {
              System.out.println("Ops! Ocorreu um erro ao posicionar o registro para o primeiro. Veja o erro"+ e);
              return;
@@ -185,6 +182,14 @@ try
   email = emailJTextField.getText();
   senha = senhaJTextField.getText();
   NavegadorDeRegistro.novoRegistro("db_texte", "tbl_texte","nome", "email", "senha", nome, email, senha);
+  updateJButton.setEnabled(true);
+  lastJButton.setEnabled(false);
+  nextJButton.setEnabled(false);
+  firstJButton.setEnabled(false);
+  previousJButton.setEnabled(false);
+  deleteJButton.setEnabled(false);
+  verJButton.setEnabled(false);
+  excluirJButton.setEnabled(true);
   notificacaoJLabel.setText("Novo registro adicionado com sucesso");
 } 
 catch(Exception e){
@@ -199,18 +204,21 @@ verJButton.addActionListener(new ActionListener() {
   public void actionPerformed(ActionEvent event) {
       String nome;
       String email;
-      String senha;
       String[] resultado;
       try {
           nome = nomeJTextField.getText();
           email = emailJTextField.getText();
-          senha = senhaJTextField.getText();
-
-          resultado = NavegadorDeRegistro.verRegistro("db_texte","tbl_texte","nome", "email","senha", nome, email,senha);
+          resultado = NavegadorDeRegistro.verRegistro("db_texte","tbl_texte","nome", "email","senha", nome, email);
 
         nomeJTextField.setText(resultado[0]);
         emailJTextField.setText(resultado[1]);
         senhaJTextField.setText(resultado[2]);
+        updateJButton.setEnabled(true);
+        lastJButton.setEnabled(false);
+        nextJButton.setEnabled(false);
+        firstJButton.setEnabled(false);
+        previousJButton.setEnabled(false);
+        deleteJButton.setEnabled(true);
 
           notificacaoJLabel.setText("Pesquisa realizada com sucesso");
       } catch (Exception e) {
@@ -250,54 +258,67 @@ excluirJButton.addActionListener(
            }
             
         };
+       });
+       
+       
+       
+       updateJButton.setEnabled(false);  
+       deleteJButton.setEnabled(false);
+       
+       firstJButton.setToolTipText("Primeiro");
+       previousJButton.setToolTipText("Anterior");
+       nextJButton.setToolTipText("Proximo");
+       lastJButton.setToolTipText("Ultimo");
+       updateJButton.setToolTipText("Atualizar");
+       deleteJButton.setToolTipText("Deletar");
+       novoJButton.setToolTipText("Adicionar");
+       verJButton.setToolTipText("Pesquisar");
+       excluirJButton.setToolTipText("Excluir");
+       
+       
+       add(idJLabel);
+       add(idJTextField);
+       add(updateJButton);
+       add(deleteJButton);
+       // add(espacadorLabel);
+       idJTextField.setEditable(false);
+       
+       add(nomeJLabel);
+       add(nomeJTextField);
+       add(espacador2Label);
+       add(novoJButton);
+       //add(espacador3JLabel);
+       
+       add(emailJLabel);
+       add(emailJTextField);
+       add(espacador4Label);
+       add(verJButton);
+       //add(espacador5Label);
+       
+       add(senhaJLabel);
+       add(senhaJTextField);
+       add(espacador6Label);
+       add(excluirJButton);
+       
+       add(firstJButton);
+       //add(espacador3JLabel);
+       add(previousJButton);
+       //add(espacador5Label);
+       add(nextJButton);
+       add(lastJButton);
+       
+       //add(espacador3Label);
+       //add(espacador5Label);
+       add(notificacaoJLabel);
+       
+       //add(espacador7Label);
+       
+       setSize(600, 300);
+       setVisible(true);
+      }
+      public static void main(String[] args) {
+        MenuDesafio application = new MenuDesafio();
+        application.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      }
     }
- );
-
- updateJButton.setEnabled(false);  
-
- add(idJLabel);
- add(idJTextField);
- add(updateJButton);
- add(deleteJButton);
-// add(espacadorLabel);
- idJTextField.setEditable(false);
-
- add(nomeJLabel);
- add(nomeJTextField);
- add(espacador2Label);
- add(novoJButton);
- //add(espacador3Label);
-
- add(emailJLabel);
- add(emailJTextField);
- add(espacador4Label);
- add(verJButton);
- //add(espacador5Label);
-
- add(senhaJLabel);
- add(senhaJTextField);
- add(espacador6Label);
- add(excluirJButton);
-
- add(firstJButton);
- //add(espacador3Label);
- add(previousJButton);
- //add(espacador5Label);
- add(nextJButton);
- add(lastJButton);
- 
- //add(espacador3Label);
- //add(espacador5Label);
- add(notificacaoJLabel);
- 
- //add(espacador7Label);
- 
- setSize(600, 300);
- setVisible(true);
-
- }
- public static void main(String[] args) {
- MenuDesafio application = new MenuDesafio();
- application.setDefaultCloseOperation(EXIT_ON_CLOSE);
- }
-}
+    
