@@ -6,7 +6,8 @@ public class MenuDesafio extends JFrame {
  private final JTextField idJTextField = new JTextField();
  private final JTextField nomeJTextField = new JTextField();
  private final JTextField emailJTextField = new JTextField();
- private final JTextField senhaJTextField = new JTextField();
+ //private final JTextField senhaJTextField = new JTextField();
+ private final JPasswordField senhaJPasswordField = new JPasswordField();
  private final JButton updateJButton = new JButton(""); 
  private final JButton nextJButton = new JButton(">");
  private final JButton previousJButton = new JButton("<");
@@ -28,6 +29,10 @@ public class MenuDesafio extends JFrame {
  private final JButton novoJButton = new JButton("+");
  private final JButton verJButton = new JButton("");
  private final JButton excluirJButton = new JButton("🗑️");
+
+ //private String strNome;
+ //private String strEmail;
+ 
  
  //private final String dbPadrao = "db_texte";
  //private final String tblPadrao = "tbl_texte";
@@ -48,7 +53,7 @@ public class MenuDesafio extends JFrame {
                 idJTextField.setText(resultado [0]);
                 nomeJTextField.setText(resultado [1]);
                 emailJTextField.setText(resultado [2]);
-                senhaJTextField.setText(resultado [3]);
+                senhaJPasswordField.setText(resultado [3]);
                 updateJButton.setEnabled(true);
                 firstJButton.setEnabled(false);
                 previousJButton.setEnabled(false);
@@ -60,6 +65,7 @@ public class MenuDesafio extends JFrame {
                 //editarJButton.setEnabled(false);
            }catch(Exception e) {
              System.out.println("Ops! Ocorreu um erro ao posicionar o registro para o primeiro. Veja o erro"+ e);
+             notificacaoJLabel.setText("Ops! Alguma coisa aconteceu que não foi possível posicionar o primeiro registro.");
              return;
            }
             
@@ -77,7 +83,7 @@ public class MenuDesafio extends JFrame {
                 idJTextField.setText(resultado [0]);
                 nomeJTextField.setText(resultado [1]);
                 emailJTextField.setText(resultado [2]);
-                senhaJTextField.setText(resultado [3]);
+                senhaJPasswordField.setText(resultado [3]);
                 updateJButton.setEnabled(true);
                 lastJButton.setEnabled(false);
                 nextJButton.setEnabled(false);
@@ -107,7 +113,7 @@ public class MenuDesafio extends JFrame {
                 idJTextField.setText(resultado [0]);
                 nomeJTextField.setText(resultado [1]);
                 emailJTextField.setText(resultado [2]);
-                senhaJTextField.setText(resultado [3]);
+                senhaJPasswordField.setText(resultado [3]);
                 updateJButton.setEnabled(true);
                 previousJButton.setEnabled(true);
 
@@ -131,8 +137,17 @@ try
 {
   nome = nomeJTextField.getText();
   email = emailJTextField.getText();
-  senha = senhaJTextField.getText();
+  senha = senhaJPasswordField.getText();
   NavegadorDeRegistro.DeleteRegister("db_texte", "tbl_texte", "nome", "email", "senha", nome, email, senha);
+  updateJButton.setEnabled(true);
+                lastJButton.setEnabled(true);
+                nextJButton.setEnabled(true);
+                firstJButton.setEnabled(true);
+                previousJButton.setEnabled(true);
+                novoJButton.setEnabled(true);
+                verJButton.setEnabled(true);
+                updateJButton.setEnabled(true);
+
   notificacaoJLabel.setText("Deletado com sucesso");
   
 } 
@@ -156,9 +171,16 @@ try
 {
   nome = nomeJTextField.getText();
   email = emailJTextField.getText();
-  senha = senhaJTextField.getText();
+  senha = senhaJPasswordField.getText();
   id = idJTextField.getText();
   NavegadorDeRegistro.updateRegistro("db_texte", "tbl_texte",id, nome, email, senha );
+                lastJButton.setEnabled(true);
+                nextJButton.setEnabled(true);
+                firstJButton.setEnabled(true);
+                previousJButton.setEnabled(true);
+                deleteJButton.setEnabled(true);
+                novoJButton.setEnabled(true);
+                verJButton.setEnabled(true);
   notificacaoJLabel.setText("Atualização realizada com sucesso");
 } 
 catch(Exception e){
@@ -180,7 +202,7 @@ try
 {
   nome = nomeJTextField.getText();
   email = emailJTextField.getText();
-  senha = senhaJTextField.getText();
+  senha = senhaJPasswordField.getText();
   NavegadorDeRegistro.novoRegistro("db_texte", "tbl_texte","nome", "email", "senha", nome, email, senha);
   updateJButton.setEnabled(true);
   lastJButton.setEnabled(false);
@@ -212,7 +234,7 @@ verJButton.addActionListener(new ActionListener() {
 
         nomeJTextField.setText(resultado[0]);
         emailJTextField.setText(resultado[1]);
-        senhaJTextField.setText(resultado[2]);
+        senhaJPasswordField.setText(resultado[2]);
         updateJButton.setEnabled(true);
         lastJButton.setEnabled(false);
         nextJButton.setEnabled(false);
@@ -234,7 +256,15 @@ excluirJButton.addActionListener(
 {
   nomeJTextField.setText("");
   emailJTextField.setText("");
-  senhaJTextField.setText("");
+  senhaJPasswordField.setText("");
+  lastJButton.setEnabled(true);
+                nextJButton.setEnabled(true);
+                firstJButton.setEnabled(true);
+                previousJButton.setEnabled(true);
+                deleteJButton.setEnabled(true);
+                novoJButton.setEnabled(true);
+                verJButton.setEnabled(true);
+                updateJButton.setEnabled(true);
   }
     }
       );
@@ -249,7 +279,7 @@ excluirJButton.addActionListener(
                 idJTextField.setText(resultado [0]);
                 nomeJTextField.setText(resultado [1]);
                 emailJTextField.setText(resultado [2]);
-                senhaJTextField.setText(resultado [3]);
+                senhaJPasswordField.setText(resultado [3]);
                 updateJButton.setEnabled(true);
                 nextJButton.setEnabled(true);
            }catch(Exception e) {
@@ -259,9 +289,9 @@ excluirJButton.addActionListener(
             
         };
        });
-       
-       
-       
+
+      
+      
        updateJButton.setEnabled(false);  
        deleteJButton.setEnabled(false);
        
@@ -296,7 +326,7 @@ excluirJButton.addActionListener(
        //add(espacador5Label);
        
        add(senhaJLabel);
-       add(senhaJTextField);
+       add(senhaJPasswordField);
        add(espacador6Label);
        add(excluirJButton);
        
@@ -316,6 +346,8 @@ excluirJButton.addActionListener(
        setSize(600, 300);
        setVisible(true);
       }
+
+      
       public static void main(String[] args) {
         MenuDesafio application = new MenuDesafio();
         application.setDefaultCloseOperation(EXIT_ON_CLOSE);

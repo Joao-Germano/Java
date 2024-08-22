@@ -3,9 +3,9 @@
 public class NavegadorDeRegistro {
     public static String[] primeiroRegistro(String db,String tbl) throws Exception {
         Connection conexao = MySQLConnector.conectar();
-        try{
         String strSqlPrimeiroRegistro = "select * from `" + db + "`.`" + tbl + "`order by `id` asc limit 1;";
         Statement stmSqlPrimeiroRegistro = conexao.createStatement();
+        try{
         ResultSet rstSqlprimeiroRegistro = stmSqlPrimeiroRegistro.executeQuery(strSqlPrimeiroRegistro);
         rstSqlprimeiroRegistro.next();
         String[] resultado = {
@@ -49,8 +49,9 @@ public class NavegadorDeRegistro {
         if (nextID >= 1) {
                 String strSqlLastRegister = "select * from `" + db + "`.`" + tbl + "` order by `id` asc;";
                 Statement stmNextRegister = conexao.createStatement();
+                try{
                 ResultSet rstSqlNextRegister = stmNextRegister.executeQuery(strSqlLastRegister);
-                String[] result = {"", "", "", ""};
+                String[] result = {"", "", "",""};
 
                 while (rstSqlNextRegister.next()) {
                     if (id.equals(rstSqlNextRegister.getString("id"))) {
@@ -69,7 +70,11 @@ public class NavegadorDeRegistro {
                 } else {
                     return result;
                 }
-        } else {
+            }catch (Exception e) {
+                System.out.println("Ops! Parece que já está no último registro...");
+                return null;
+            }
+        }else {
             return null;
         }
     }
@@ -186,11 +191,12 @@ public class NavegadorDeRegistro {
         int proximoId = idPessoa - 1;
         if(proximoId >= 1) {
             String strSqlAnteriorRegistro = "select * from `" + db + "`.`" + tbl + "`order by `id` desc;";
+            try{
             Statement stmSqlAnteriorRegistro = conexao.createStatement();
             ResultSet rstSqlanteriorRegistro = stmSqlAnteriorRegistro.executeQuery(strSqlAnteriorRegistro);
-            String[] resultado = {"","","", ""};
+            String[] resultado = {"","","",""};
             while (rstSqlanteriorRegistro.next()) {
-            if (id.equals(rstSqlanteriorRegistro.getString("id"))) {
+                if (id.equals(rstSqlanteriorRegistro.getString("id"))) {
                 rstSqlanteriorRegistro.next();
                 resultado[0] = rstSqlanteriorRegistro.getString("id");
                 resultado[1] = rstSqlanteriorRegistro.getString("nome");
@@ -205,7 +211,12 @@ public class NavegadorDeRegistro {
             } else {
                 return resultado;
             }
-        } else {
+                }catch (Exception e) {
+                System.out.println("Ops! Parece que já está no primeiro registro...");
+                return null;
+            }
+        }else {
+            
             return null;
         }
     }
